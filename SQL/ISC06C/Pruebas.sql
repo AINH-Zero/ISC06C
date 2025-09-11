@@ -1,3 +1,0 @@
--- insert into C_Grupo (Gpo_Nombre) values ('MARIO   ')
--- truncate table C_Grupo
--- select * from C_Grupo
