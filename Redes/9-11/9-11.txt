@@ -1,0 +1,51 @@
+------Router 0
+ena
+conf t
+interface serial0/3/0
+ip address 10.0.0.1 255.255.255.252
+no shutdown
+exit
+interface fa0/0
+ip address 192.168.1.254 255.255.255.0
+no shutdown
+exit
+router ospf 1
+network 192.168.1.0 0.0.0.255 area 0
+network 10.0.0.0 0.0.0.3 area 0
+exit
+
+------Router 1
+ena
+conf t
+interface serial0/3/0
+ip address 10.0.0.2 255.255.255.252
+no shutdown
+exit
+interface serial0/3/1
+ip address 10.0.0.6 255.255.255.252
+no shutdown
+exit
+interface fa0/0
+ip address 192.168.2.254 255.255.255.0
+no shutdown
+router ospf 1
+network 10.0.0.4 0.0.0.3 area 0
+network 10.0.0.0 0.0.0.3 area 0
+network 192.168.2.0 0.0.0.255 area 0
+exit
+
+------Router 2
+ena
+conf t
+interface serial0/3/0
+ip address 10.0.0.5 255.255.255.252
+no shutdown
+exit
+interface fa0/0
+ip address 172.16.255.254 255.255.0.0
+no shutdown
+exit
+router ospf 1
+network 172.16.0.0 0.0.255.255 area 0
+network 10.0.0.4 0.0.0.3 area 0
+exit
