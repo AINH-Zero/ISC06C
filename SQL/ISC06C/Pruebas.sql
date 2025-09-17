@@ -1,3 +1,9 @@
 -- insert into C_Grupo (Gpo_Nombre) values ('MARIO   ')
 -- truncate table C_Grupo
 -- select * from C_Grupo
+-- insert into T_Alumno (Alo_Nombre, Alo_PrimerApellido, Alo_SegundoApellido, Alo_GrupoID, Alo_CarreraID, Alo_Correo, Alo_Estatus, Alo_Turno, Alo_Grado) values ('SARA', 'AGUIRRE', 'DE LUNA', 1, 2, 'a@lop.co', 1, 'MATUTINO', 7)
+-- truncate table T_Alumno
+-- select * from T_Alumno
+-- insert into T_Libro (Lbo_Titulo, Lbo_Autor, Lbo_Genero, Lbo_Editorial, Lbo_Stock, Lbo_Edicion) values ('EL PRINCIPITO', 1, 2, 3, 4, 'ESPECIAL')
+-- truncate table T_Libro
+-- select * from T_Libro
