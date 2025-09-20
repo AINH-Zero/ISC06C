@@ -24,3 +24,13 @@
 --FROM sys.database_permissions p
 --JOIN sys.database_principals dp ON p.grantee_principal_id = dp.principal_id
 --WHERE dp.name = 'LectoresBiblioteca';
+
+-- Modificar y rebocar permisos 
+-- Revocar Permisos 
+--REVOKE INSERT ON SCHEMA::dbo FROM LectoresBiblioteca;
+-- Quitar uario del rol
+--EXEC sp_droprolemember 'LectoresBiblioteca', 'AlumnoUser';
+-- Eliminar usuario y login
+--DROP USER AlumnoUser;
+--DROP LOGIN AlumnoLogin;
+--DROP ROLE LectoresBiblioteca;
