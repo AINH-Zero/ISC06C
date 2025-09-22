@@ -4,18 +4,17 @@ public class Check {
 
         for (int i = 1; i <= 10; i++) {
             int resultado = numero * i;
-            System.out.println(numero + " x " + numero + " = " + resultado);
+            System.out.println(numero + " x " + i + " = " + resultado);
         }
 
         //Sumar multiplos de 3 entre 1 y 20
         int suma = 0;
         for(int i = 1; i<= 20; i++) {
             if(i%3==0) {
-                suma = suma +1;
+                suma = suma + i;
             }
         }
-
-        System.out.println("Multiplos de 3" + suma);
+        System.out.println("Suma de los multiplos: " + suma);
 
         //Serie fibonacci con bug, deberia imprimir los primeros 10 numeros
         int a = 0, b = 1;
@@ -29,7 +28,7 @@ public class Check {
         int[] calificaciones = { 80, 90, 70, 60, 100};
         int sumaPromedio = 0;
 
-        for ( int i = 0; i <= calificaciones.length; i++) {
+        for ( int i = 0; i < calificaciones.length; i++) {
             sumaPromedio += calificaciones[i];
         }
 
@@ -42,14 +41,14 @@ public class Check {
         int buscador = 15;
         boolean bandera = false;
 
-        for (int i = 0; i <= numeros.length; i++) {
+        for (int i = 0; i < numeros.length; i++) {
             if ( numeros[i] == buscador) {
-                bandera= true;
+                bandera = true;
                 break;
             }
         }
 
-        if( bandera = true) {
+        if( bandera == true) {
             System.out.println(("numero encontrado"));
         } else {
             System.out.println("numero no encontrado");
