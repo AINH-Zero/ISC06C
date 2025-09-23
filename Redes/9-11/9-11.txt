@@ -13,6 +13,10 @@ router ospf 1
 network 192.168.1.0 0.0.0.255 area 0
 network 10.0.0.0 0.0.0.3 area 0
 exit
+access-list 101 deny tcp 192.168.1.0 0.0.0.255 host 172.16.0.3 eq 80
+access-list 101 permit ip any any
+interface fa0/0
+ip access-group 101 in
 
 ------Router 1
 ena
@@ -33,6 +37,10 @@ network 10.0.0.4 0.0.0.3 area 0
 network 10.0.0.0 0.0.0.3 area 0
 network 192.168.2.0 0.0.0.255 area 0
 exit
+access-list 102 deny tcp 192.168.2.0 0.0.0.255 host 172.16.0.4 eq 21
+access-list 102 permit ip any any
+interface fa0/0
+ip access-group 102 in
 
 ------Router 2
 ena
