@@ -1,0 +1,9 @@
+BEGIN TRANSACTION;
+	BEGIN TRY
+		INSERT INTO Alumnos VALUES (5, 'Lucia Torres', 24)
+		COMMIT;
+	END TRY
+	BEGIN CATCH
+		ROLLBACK;
+		PRINT 'Error en la insercion.';
+	END CATCH;

@@ -1,0 +1,43 @@
+--BEGIN TRANSACTION;
+--	INSERT INTO Alumnos VALUES (7, 'Nora Perez', 26);
+--	SAVE TRANSACTION Punto1;
+--	INSERT INTO Alumnos VALUES (8, 'Luis Soto', 27);
+--	COMMIT;
+
+--BEGIN TRANSACTION;
+--	INSERT INTO Alumnos VALUES (9, 'Mario Diaz', 28);
+--	SAVE TRANSACTION Punto1;
+--	INSERT INTO Alumnos VALUES (9, 'Duplicado', 29);
+--	ROLLBACK TRANSACTION Punto1;
+--	COMMIT;
+
+--BEGIN TRANSACTION;
+--	SAVE TRANSACTION Punto1;
+--	UPDATE Alumnos SET Edad = Edad + 2 WHERE ID = 7;
+--	COMMIT;
+
+--BEGIN TRANSACTION;
+--	INSERT INTO Alumnos VALUES (10, 'Sara Lopez', 31);
+--SAVE TRANSACTION Punto1;
+--SELECT * FROM Alumnos;
+--	INSERT INTO Alumnos VALUES (11, 'Pablo Ruiz', 32);
+--SAVE TRANSACTION Punto2;
+--SELECT * FROM Alumnos;
+--ROLLBACK TRANSACTION Punto1;
+--SELECT * FROM Alumnos;
+--COMMIT;
+
+BEGIN TRANSACTION;
+	BEGIN TRY
+		INSERT INTO Alumnos VALUES (12, 'Tomas Vega', 33);
+		SAVE TRANSACTION Punto1;
+		INSERT INTO Alumnos VALUES (12, 'Tomas Vega', 33);
+		ROLLBACK TRANSACTION Punto1
+	COMMIT;
+	END TRY
+	BEGIN CATCH
+		ROLLBACK;
+		PRINT 'Error capturado. Reversion parcial aplicada.';
+	END CATCH;
+
+SELECT * FROM Alumnos;

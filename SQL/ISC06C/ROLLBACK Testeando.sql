@@ -1,0 +1,7 @@
+BEGIN TRANSACTION;
+	SELECT * FROM Alumnos
+	INSERT INTO Alumnos VALUES (4, 'Pedro Sanchez', 23);
+	SELECT * FROM Alumnos
+ROLLBACK;
+
+	SELECT * FROM Alumnos;

@@ -1,0 +1,13 @@
+USE Testeando
+GO
+--CREATE TABLE Alumnos (
+--	ID INT PRIMARY KEY,
+--	Nombre NVARCHAR(100),
+--	Edad INT
+--);
+BEGIN TRANSACTION;
+	--INSERT INTO Alumnos VALUES (1, 'Ana Lopez', 20);
+	--INSERT INTO Alumnos VALUES (2, 'Luis Gomez', 21);
+	--INSERT INTO Alumnos VALUES (3, 'Marta Diaz', 22);
+--ROLLBACK TRANSACTION;
+--COMMIT TRANSACTION;

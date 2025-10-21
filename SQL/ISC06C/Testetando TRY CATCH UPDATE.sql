@@ -1,0 +1,9 @@
+BEGIN TRANSACTION;
+	BEGIN TRY
+		UPDATE Alumnos SET Edad = Edad + 2 WHERE ID = 5;
+		COMMIT;
+	END TRY
+	BEGIN CATCH
+		ROLLBACK;
+		PRINT 'Error al actualizar.';
+	END CATCH;

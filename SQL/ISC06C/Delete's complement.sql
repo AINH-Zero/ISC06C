@@ -1,0 +1,1 @@
+SELECT * FROM C_Autor;
