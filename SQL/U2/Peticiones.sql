@@ -1,0 +1,33 @@
+-- Peticion 1
+--CREATE VIEW Planificacion_Presupuestaria_View
+--AS
+--SELECT d.NombreDepartamento, AVG(e.Salario) as PromSalario, COUNT(e.EmpleadoID) as Empleados
+--FROM dbo.Empleados e
+--INNER JOIN dbo.Departamentos d ON d.DepartamentoID = e.DepartamentoID
+--GROUP BY d.NombreDepartamento;
+--SELECT * FROM Planificacion_Presupuestaria_View;
+
+-- Peticion 2
+--SELECT * FROM dbo.Asignaciones;
+--SELECT * FROM dbo.Proyectos;
+--SELECT * FROM dbo.Departamentos;
+--SELECT * FROM dbo.Empleados;
+--CREATE VIEW Presupuesto_Depa_View
+--AS
+--SELECT d.NombreDepartamento, COUNT(e.EmpleadoID) AS Empleados, SUM(p.Presupuesto) AS Presupuesto
+--FROM dbo.Departamentos as d
+--INNER JOIN dbo.Empleados AS e ON d.DepartamentoID = e.DepartamentoID
+--INNER JOIN dbo.Asignaciones AS a ON e.EmpleadoID = a.EmpleadoID
+--INNER JOIN dbo.Proyectos AS p ON a.ProyectoID = p.ProyectoID
+--GROUP BY d.NombreDepartamento
+--HAVING SUM(p.Presupuesto) > 100000;
+--SELECT * FROM Presupuesto_Depa_View;
+
+-- Peticion 3
+--CREATE VIEW CargaLaboral_Empleado_View
+--AS
+--SELECT e.NombreCompleto AS Nombre, COUNT(DISTINCT a.ProyectoID) AS Proyectos, SUM(a.HorasSemanales) AS Horas
+--FROM dbo.Empleados AS e
+--INNER JOIN dbo.Asignaciones AS a ON e.EmpleadoID = a.EmpleadoID
+--GROUP BY e.NombreCompleto;
+--SELECT * FROM CargaLaboral_Empleado_View;

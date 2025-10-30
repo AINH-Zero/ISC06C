@@ -15,4 +15,4 @@ GO
 --SELECT Titulo, CASE WHEN Disponible = 0 THEN 'Prestado :o' ELSE 'Disponible :)'
 --  END AS estado_del_campo
 --FROM Libros;
-SELECT * FROM vw_Libros_Disponiblie;
+--SELECT * FROM vw_Libros_Disponiblie;
