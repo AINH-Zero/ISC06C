@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 // 1. Define tu clase principal que extiende de Application
-public class MainApp extends Application {
+public class Main extends Application {
 
     // 2. Este es el método 'start', el punto de entrada de JavaFX
     @Override
