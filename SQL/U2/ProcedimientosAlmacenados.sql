@@ -95,9 +95,40 @@
 --END
 --GO
 
--- EJECUCION (PRIMERO INSERTAMOS UN LIBRO TEMPORAL PARA BORRARLO)
-EXEC usp_Insertarlibro @Titulo = 'Temporal', @AutorID = 1, @AnioPublicacion = 2024, @Precio = 1.00;
--- OBTENER EL ID DEL ULTIMO LIBRO INSERTADO (TEMPORAL)
-DECLARE @TempLibroID INT = (SELECT MAX(LibroID) FROM Libros WHERE Titulo = 'Temporal');
--- BORRAR EL LIBRO
-EXEC usp_EliminarLibro @LibroID = @TempLibroID;
+---- EJECUCION (PRIMERO INSERTAMOS UN LIBRO TEMPORAL PARA BORRARLO)
+--EXEC usp_Insertarlibro @Titulo = 'Temporal', @AutorID = 1, @AnioPublicacion = 2024, @Precio = 1.00;
+---- OBTENER EL ID DEL ULTIMO LIBRO INSERTADO (TEMPORAL)
+--DECLARE @TempLibroID INT = (SELECT MAX(LibroID) FROM Libros WHERE Titulo = 'Temporal');
+---- BORRAR EL LIBRO
+--EXEC usp_EliminarLibro @LibroID = @TempLibroID;
+
+
+--IF OBJECT_ID('usp_InsertarAutor_OUT', 'P') IS NOT NULL DROP PROCEDURE usp_InsertarAutor_OUT;
+--GO
+
+--CREATE PROCEDURE usp_InsertarAutor_OUT
+--	@Nombre VARCHAR(100),
+--	@Apellido VARCHAR(100),
+--	@Nacionalidad VARCHAR(50),
+--	@NuevoAutorID INT OUTPUT --PARAMETRO DE SALIDA
+--AS
+--BEGIN
+--	INSERT INTO Autores (Nombre, Apellido, Nacionalidad)
+--	VALUES (@Nombre, @Apellido, @Nacionalidad);
+
+--	-- ASIGNAR EL ID GENERADO (SCOPE_IDENTITY()) AL PARAMETRO DE SALIDA
+--	SET @NuevoAutorID = SCOPE_IDENTITY();
+--END
+--GO
+
+-- Ejecución
+DECLARE @ID_Generado INT;
+
+EXEC usp_InsertarAutor_OUT
+	@Nombre = 'IsabeL',
+	@Apellido = 'Allende',
+	@Nacionalidad = 'Chilena',
+	@NuevoAutorID = @ID_Generado OUTPUT;
+
+SELECT 'Nuevo Autor Creado con ID:' AS Mensaje, @ID_Generado AS NuevoID;
+	
