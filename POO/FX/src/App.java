@@ -7,11 +7,24 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 
 public class App extends Application {
 
     @Override
     public void start(Stage stage) {
+
+        //Crear label
+        Label mensaje = new Label("Presiona un boton");
+
+        //Boton para saludar
+        Button btnSaludar = new Button("Saludar");
+        btnSaludar.setOnAction(e -> mensaje.setText("Hola"));
+
+        //Boton para limpiar
+        Button btnLimpiar = new Button("Limpiar");
+        btnLimpiar.setOnAction(e -> mensaje.setText(""));
 
         // 1. Crear una tabla
         TableView<Persona> tabla = new TableView<>();
