@@ -1,0 +1,56 @@
+--Con la configuracion de EIGRP
+////Router 0
+ena
+conf t
+interface GigabitEthernet0/0/0
+ no ipv6 eigrp 100
+exit
+interface Serial0/2/0
+ no ipv6 eigrp 100
+exit
+
+no ipv6 router eigrp 100
+
+ipv6 router ospf 1
+ router-id 1.1.1.1
+exit
+
+interface GigabitEthernet0/0/0
+ ipv6 ospf 1 area 0
+ no shutdown
+exit
+
+interface Serial0/2/0
+ ipv6 ospf 1 area 0
+ no shutdown
+exit
+
+
+////Router2
+ena
+conf t
+interface GigabitEthernet0/0/0
+ no ipv6 eigrp 100
+exit
+interface Serial0/1/0
+ no ipv6 eigrp 100
+exit
+
+no ipv6 router eigrp 100
+
+ipv6 router ospf 1
+ router-id 3.3.3.3
+exit
+
+interface GigabitEthernet0/0/0
+ ipv6 ospf 1 area 0
+ no shutdown
+exit
+
+interface Serial0/1/0
+ ipv6 ospf 1 area 0
+ no shutdown
+exit
+
+--Revisar OSPF
+show ipv6 ospf neighbor

@@ -1,0 +1,39 @@
+--Con la configuracion de Estatico
+////Router 0
+ena
+conf t
+no ipv6 route ::/0 2001:abcd:0123:1::2
+
+ipv6 router rip RED_RIP
+exit
+
+interface GigabitEthernet0/0/0
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+interface Serial0/2/0
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+////Router 2
+ena
+conf t
+no ipv6 route ::/0 2002:abcd:0123:1::1
+
+ipv6 router rip RED_RIP
+exit
+
+interface GigabitEthernet0/0/0
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+interface Serial0/1/0
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+--Para ver RIP
+show ipv6 route

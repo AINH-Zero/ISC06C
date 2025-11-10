@@ -1,0 +1,57 @@
+--Con la configuracion de RIP
+////Router 0
+ena
+conf t
+interface GigabitEthernet0/0/0
+ no ipv6 rip RED_RIP enable
+exit
+interface Serial0/2/0
+ no ipv6 rip RED_RIP enable
+exit
+
+no ipv6 router rip RED_RIP
+
+ipv6 router eigrp 100
+ eigrp router-id 1.1.1.1
+ no shutdown
+exit
+
+interface GigabitEthernet0/0/0
+ ipv6 eigrp 100
+ no shutdown
+exit
+
+interface Serial0/2/0
+ ipv6 eigrp 100
+ no shutdown
+exit
+
+////Router 2
+ena
+conf t
+interface GigabitEthernet0/0/0
+ no ipv6 rip RED_RIP enable
+exit
+interface Serial0/1/0
+ no ipv6 rip RED_RIP enable
+exit
+
+no ipv6 router rip RED_RIP
+
+ipv6 router eigrp 100
+ eigrp router-id 3.3.3.3
+ no shutdown
+exit
+
+interface GigabitEthernet0/0/0
+ ipv6 eigrp 100
+ no shutdown
+exit
+
+interface Serial0/1/0
+ ipv6 eigrp 100
+ no shutdown
+exit
+
+--Revisar EIGRP
+show ipv6 eigrp neighbors

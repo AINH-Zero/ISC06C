@@ -1,0 +1,58 @@
+--Con la configuracion de Estatico
+////Router 0
+ena
+conf t
+no ipv6 route ::/0 2001:abcd:0123:1::2
+
+ipv6 router rip RED_RIP
+exit
+
+interface FastEthernet0/0
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+interface FastEthernet0/1
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+////Router 1
+ena
+conf t
+no ipv6 route 2001:10::/64 2001:abcd:0123:1::1
+no ipv6 route 2002:20::/64 2002:abcd:0123:1::2
+
+ipv6 router rip RED_RIP
+exit
+
+interface FastEthernet0/0
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+interface FastEthernet0/1
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+////Router 2
+ena
+conf t
+no ipv6 route ::/0 2002:abcd:0123:1::1
+
+ipv6 router rip RED_RIP
+exit
+
+interface FastEthernet0/0
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+interface FastEthernet0/1
+ ipv6 rip RED_RIP enable
+ no shutdown
+exit
+
+--Para ver RIP
+show ipv6 route

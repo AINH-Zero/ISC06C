@@ -1,0 +1,39 @@
+////Router 0
+enable
+conf t
+hostname Router0
+ipv6 unicast-routing
+
+interface GigabitEthernet0/0/0
+ description CONEXION A PC0
+ ipv6 address 2001:10::1/64
+ no shutdown
+exit
+
+interface Serial0/2/0
+ description CONEXION A ROUTER1
+ ipv6 address 2001:abcd:0123:1::1/64
+ no shutdown
+exit
+
+ipv6 route ::/0 2001:abcd:0123:1::2
+
+///Router 2
+enable
+conf t
+hostname Router2
+ipv6 unicast-routing
+
+interface GigabitEthernet0/0/0
+ description CONEXION A PC1
+ ipv6 address 2002:20::1/64
+ no shutdown
+exit
+
+interface Serial0/1/0
+ description CONEXION A ROUTER1
+ ipv6 address 2002:abcd:0123:1::2/64
+ no shutdown
+exit
+
+ipv6 route ::/0 2002:abcd:0123:1::1

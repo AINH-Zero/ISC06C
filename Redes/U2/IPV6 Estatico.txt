@@ -1,0 +1,60 @@
+////Router 0
+enable
+conf t
+hostname Router0
+ipv6 unicast-routing
+
+interface FastEthernet0/0
+ description CONEXION A PC0
+ ipv6 address 2001:10::1/64
+ no shutdown
+exit
+
+interface FastEthernet0/1
+ description CONEXION A ROUTER1
+ ipv6 address 2001:abcd:0123:1::1/64
+ no shutdown
+exit
+
+ipv6 route ::/0 2001:abcd:0123:1::2
+
+////Router 1
+enable
+conf t
+hostname Router1
+ipv6 unicast-routing
+
+interface FastEthernet0/0
+ description CONEXION A ROUTER0
+ ipv6 address 2001:abcd:0123:1::2/64
+ no shutdown
+exit
+
+interface FastEthernet0/1
+ description CONEXION A ROUTER2
+ ipv6 address 2002:abcd:0123:1::1/64
+ no shutdown
+exit
+
+ipv6 route 2001:10::/64 2001:abcd:0123:1::1
+ipv6 route 2002:20::/64 2002:abcd:0123:1::2
+
+///Router 2
+enable
+conf t
+hostname Router2
+ipv6 unicast-routing
+
+interface FastEthernet0/0
+ description CONEXION A PC1
+ ipv6 address 2002:20::1/64
+ no shutdown
+exit
+
+interface FastEthernet0/1
+ description CONEXION A ROUTER1
+ ipv6 address 2002:abcd:0123:1::2/64
+ no shutdown
+exit
+
+ipv6 route ::/0 2002:abcd:0123:1::1
