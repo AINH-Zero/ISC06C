@@ -1,0 +1,117 @@
+-- EJERCICIO 3: Trigger AFTER DELETE - Registro de eliminaciones
+-- =============================================================
+-- Trigger que registra empleados eliminados
+-- =============================================================
+--CREATE TRIGGER trg_Auditoria_Delete
+--ON Empleados
+--AFTER DELETE
+--AS
+--BEGIN
+--    -- Insertar en auditoría el nombre de los empleados eliminados
+--    INSERT INTO Auditoria (Usuario, Accion)
+--    SELECT SYSTEM_USER, 'Empleado eliminado: ' + Nombre
+--    FROM DELETED;   -- Tabla virtual con los registros eliminados
+--END;
+--GO
+
+---- Prueba
+--DELETE FROM Empleados WHERE Nombre = 'Laura Torres';
+
+-- EJERCICIO 4: Trigger INSTEAD OF INSERT - Validar sueldos
+-- =============================================================
+-- Crear una vista que mostrará empleados válidos
+-- =============================================================
+--CREATE VIEW vw_Empleados_Validados
+--AS
+--SELECT IdEmpleado, Nombre, Puesto, Sueldo
+--FROM Empleados;
+--GO
+
+-- =============================================================
+-- Trigger que evita insertar empleados con sueldo menor a 10,000
+-- =============================================================
+--CREATE TRIGGER trg_InsteadOf_Insert
+--ON vw_Empleados_Validados
+--INSTEAD OF INSERT               -- Se ejecuta en lugar del INSERT
+--AS
+--BEGIN
+--    -- Insertar solo los empleados con sueldo > 10,000
+--    INSERT INTO Empleados (Nombre, Puesto, Sueldo)
+--    SELECT Nombre, Puesto, Sueldo
+--    FROM INSERTED
+--    WHERE Sueldo > 10000;
+
+--    PRINT 'Solo se insertaron empleados con sueldo mayor a 10,000.';
+--END;
+
+-- EJERCICIO 5: Trigger AFTER UPDATE - Bloquear reducción de sueldos
+-- =============================================================
+-- Evita que un sueldo sea reducido
+-- =============================================================
+--CREATE TRIGGER trg_NoBajarSueldo
+--ON Empleados
+--AFTER UPDATE
+--AS
+--BEGIN
+--    -- Verifica si hay registros donde el nuevo sueldo sea menor al anterior
+--    IF EXISTS (
+--        SELECT 1
+--        FROM INSERTED i
+--        JOIN DELETED d ON i.IdEmpleado = d.IdEmpleado
+--        WHERE i.Sueldo < d.Sueldo
+--    )
+--    BEGIN
+--        -- Si ocurre, revierte la transacción y muestra mensaje de error
+--        ROLLBACK TRANSACTION;
+--        RAISERROR('No se permite disminuir el sueldo.', 16, 1);
+--    END
+--END;
+--GO
+
+-- Prueba (debe fallar)
+--UPDATE Empleados SET Sueldo = 5000 WHERE Nombre = 'Sofía Ruiz';
+
+-- EJERCICIO 6: Trigger AFTER INSERT - Cálculo automático
+-- =============================================================
+-- Calcula automáticamente un bono del 10% al insertar empleados
+-- =============================================================
+--CREATE TRIGGER trg_CalculaBono
+--ON Empleados
+--AFTER INSERT
+--AS
+--BEGIN
+--    -- Actualiza los sueldos recién insertados aplicando un 10% adicional
+--    UPDATE e
+--    SET e.Sueldo = e.Sueldo * 1.1
+--    FROM Empleados e
+--    INNER JOIN INSERTED i ON e.IdEmpleado = i.IdEmpleado;
+--END;
+--GO
+
+-- Prueba
+--INSERT INTO Empleados (Nombre, Puesto, Sueldo)
+--VALUES ('Andrés López', 'Diseñador', 15000);
+
+-- EJERCICIO 7: Trigger AFTER DELETE - Proteger empleados
+-- =============================================================
+-- Evita que se eliminen empleados con puesto Gerente
+-- =============================================================
+--CREATE TRIGGER trg_ProtegeGerente
+--ON Empleados
+--AFTER DELETE
+--AS
+--BEGIN
+--    -- Si se intenta eliminar un Gerente, cancelar la transacción
+--    IF EXISTS (SELECT 1 FROM DELETED WHERE Puesto = 'Gerente')
+--    BEGIN
+--        ROLLBACK TRANSACTION;
+--        RAISERROR('No se puede eliminar un empleado con puesto Gerente.', 16, 1);
+--    END
+--END;
+--GO
+
+-- Prueba (debe fallar)
+--INSERT INTO Empleados (Nombre, Puesto, Sueldo)
+--VALUES ('Miguel Castro', 'Gerente', 30000);
+
+--DELETE FROM Empleados WHERE Puesto = 'Gerente';

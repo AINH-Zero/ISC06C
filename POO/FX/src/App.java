@@ -2,60 +2,70 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
 
-public class App extends Application {
 
+
+
+
+public class App  extends Application{
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage){
 
-        //Crear label
-        Label mensaje = new Label("Presiona un boton");
+        Label mensaje = new Label("presiona el boton");
 
-        //Boton para saludar
+        //Boton para saludar 
         Button btnSaludar = new Button("Saludar");
-        btnSaludar.setOnAction(e -> mensaje.setText("Hola"));
+        btnSaludar.setOnAction(e -> mensaje.setText("hola :)"));
 
-        //Boton para limpiar
+        //Boton de limpiar
         Button btnLimpiar = new Button("Limpiar");
         btnLimpiar.setOnAction(e -> mensaje.setText(""));
 
-        // 1. Crear una tabla
         TableView<Persona> tabla = new TableView<>();
 
-        // 2. Crear las columnas
+        //Crear Columnas
         TableColumn<Persona, String> colNombre = new TableColumn<>("Nombre");
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-
+        
         TableColumn<Persona, Integer> colEdad = new TableColumn<>("Edad");
         colEdad.setCellValueFactory(new PropertyValueFactory<>("edad"));
-        
-        // 3. Agregar las columnas a la tabla (¡Esta línea faltaba en las fotos!)
+
+        //Agregar columnas a la tabla
         tabla.getColumns().addAll(colNombre, colEdad);
 
-        // 4. Crear lista de datos
+        //Crear Lista de datos
         ObservableList<Persona> datos = FXCollections.observableArrayList(
-                new Persona("Karime", 20),
-                new Persona("Issac", 21),
-                new Persona("Naoki", 25)
+            new Persona("Daniel", 24),
+            new Persona("Dante", 20),
+            new Persona("Poncho", 22)
         );
 
-        // 5. Asignar los datos a la tabla
+        //Asignar valores a la tabla
         tabla.setItems(datos);
 
-        // 6. Crear la escena
-        VBox root = new VBox(tabla);
-        Scene scene = new Scene(root, 300, 200);
-
-        // 7. Configurar y mostrar el Stage (la ventana)
-        stage.setTitle("Tabla de personas");
+        //VBox root  = new VBox(tabla);
+        VBox root = new VBox(30);
+        root .getChildren().addAll(mensaje, btnSaludar, btnLimpiar);
+        //escena
+        Scene scene = new Scene (root,300,200);
         stage.setScene(scene);
+        stage.setTitle("Ejemplo de botones ");
         stage.show();
+
+        /*Label label = new Label ("Hola desde JAvaFX");
+        Scene scene = new Scene (label, 400, 200);
+        stage.setTitle("Ejemplo JavaFX");
+        stage.setScene(scene);
+        stage.show();*/
+    }
+    public static void main(String[] args) throws Exception {
+        launch();
     }
 }
